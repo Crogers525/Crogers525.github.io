@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Instructional Designer Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#home">Skip to content</a>
+
+  <!-- Sidebar -->
+  <nav class="sidebar" aria-label="Primary">
+    <div class="brand">
+      <span class="avatar" aria-hidden="true">ID</span>
+      <div class="brand-text">
+        <strong>Instructional Designer</strong>
+        <small>Portfolio</small>
+      </div>
+    </div>
+    <ul class="menu" role="list">
+      <li><a href="#home" class="active">Home</a></li>
+      <li><a href="#resume">Resume</a></li>
+      <li><a href="#artifacts">Artifacts</a></li>
+      <li><a href="#reflections">Reflections</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main -->
+  <main class="main">
+    <!-- HOME -->
+    <section id="home" class="route" aria-labelledby="home-title">
+      <header class="hero">
+        <img class="headshot" src="images/Headshot.jpg" alt="Headshot of the portfolio owner" />
+        <div>
+          <h1 id="home-title">Hi, I’m an Instructional Designer</h1>
+          <p class="lede">
+            I create engaging learning experiences for workforce training and academic programs.
+            This portfolio showcases selected artifacts, a brief resume, and reflections on practice.
+          </p>
+        </div>
+      </header>
+
+      <section class="about">
+        <h2>About</h2>
+        <p>
+          My work blends instructional design, media development, and performance improvement.
+          I care about clarity, accessibility, and measurable outcomes.
+        </p>
+      </section>
+
+      <section class="contact" aria-labelledby="contact-title">
+        <h2 id="contact-title">Contact Me</h2>
+        <ul class="contact-list">
+          <li><strong>Email:</strong> <a href="mailto:your.email@example.com">your.email@example.com</a></li>
+          <li><strong>LinkedIn:</strong> <a href="#" rel="noopener">linkedin.com/in/yourprofile</a></li>
+        </ul>
+      </section>
+    </section>
+
+    <!-- RESUME -->
+    <section id="resume" class="route" aria-labelledby="resume-title" hidden>
+      <h1 id="resume-title">Resume</h1>
+      <p class="muted">Drop a PDF at <code>/resume.pdf</code> when ready.</p>
+      <p><a class="button" href="resume.pdf" target="_blank" rel="noopener">View/Download Resume</a></p>
+
+      <div class="grid two">
+        <section>
+          <h2>Experience</h2>
+          <ul class="timeline">
+            <li>
+              <h3>Curriculum / Program Coordination</h3>
+              <p>Design and manage training materials, assessments, and stakeholder alignment.</p>
+            </li>
+            <li>
+              <h3>Instructional Media & EdTech</h3>
+              <p>Rapid prototyping, LMS integration, and toolchains for content production.</p>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>Education</h2>
+          <ul class="timeline">
+            <li><h3>M.S. Instructional Technology (in progress)</h3><p>University Name</p></li>
+            <li><h3>B.S. Education</h3><p>University Name</p></li>
+          </ul>
+        </section>
+      </div>
+    </section>
+
+    <!-- ARTIFACTS -->
+    <section id="artifacts" class="route" aria-labelledby="artifacts-title" hidden>
+      <h1 id="artifacts-title">Artifacts</h1>
+      <p class="muted">Click any image to open the lightbox. Use Esc to close, ←/→ to navigate.</p>
+
+      <div class="grid three gallery">
+        <!-- Use data-full if you want a different (larger) file than the thumbnail -->
+        <article class="card">
+          <img src="images/WeEnhanced.png"
+               alt="Tips for Teaching Web-Enhanced Courses"
+               class="thumb" data-full="images/WeEnhanced.png">
+          <h3>Web-Enhanced Course Design</h3>
+          <p>Visual strategy for tech-assisted teaching.</p>
+        </article>
+
+        <article class="card">
+          <img src="images/1DataAnalytics.png"
+               alt="ArcGIS basemap selection step"
+               class="thumb" data-full="images/1DataAnalytics.png">
+          <h3>GIS Data Analytics</h3>
+          <p>Step-by-step imagery preparation for analysis.</p>
+        </article>
+
+        <article class="card">
+          <img src="images/1UASFire.png"
+               alt="UAS fire scene documentation slide"
+               class="thumb" data-full="images/1UASFire.png">
+          <h3>UAS Fire Scene Documentation</h3>
+          <p>Aerial data for incident reporting.</p>
+        </article>
+
+        <article class="card">
+          <img src="images/1UASLEO.png"
+               alt="Patrol officer UAS deployments"
+               class="thumb" data-full="images/1UASLEO.png">
+          <h3>Law Enforcement UAS Ops</h3>
+          <p>Quick‐deploy strategies and considerations.</p>
+        </article>
+
+        <article class="card">
+          <img src="images/2FlightOps.png"
+               alt="Flight exercises basics: spacing and altitude"
+               class="thumb" data-full="images/2FlightOps.png">
+          <h3>Flight Operations Training</h3>
+          <p>Core maneuver exercises and scaffolding.</p>
+        </article>
+
+        <article class="card">
+          <img src="images/UAS%20Overview.png"
+               alt="Fixed Wing UAS overview"
+               class="thumb" data-full="images/UAS%20Overview.png">
+          <h3>UAS Overview</h3>
+          <p>Platform comparisons for mapping and surveying.</p>
+        </article>
+
+        <article class="card">
+          <img src="images/UASLeadership.png"
+               alt="Course scope and leadership diagram"
+               class="thumb" data-full="images/UASLeadership.png">
+          <h3>Course Leadership & Scope</h3>
+          <p>Coordination, command, and information flow.</p>
+        </article>
+
+        <article class="card">
+          <img src="images/2DataAnalytics.png"
+               alt="Imagery analysis results map"
+               class="thumb" data-full="images/2DataAnalytics.png">
+          <h3>Analytics Output</h3>
+          <p>Processed imagery layered with features.</p>
+        </article>
+
+        <article class="card">
+          <img src="images/2UASFire.png"
+               alt="Indoor operations and overwatch slide"
+               class="thumb" data-full="images/2UASFire.png">
+          <h3>UAS Operations—Indoor/Overwatch</h3>
+          <p>Situational awareness and safety considerations.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- REFLECTIONS -->
+    <section id="reflections" class="route" aria-labelledby="reflections-title" hidden>
+      <h1 id="reflections-title">Reflections</h1>
+      <article class="note">
+        <h3>Tool Choice Matters</h3>
+        <p>Photoshop for manipulation, Illustrator for precision, InDesign for layout, Express for speed.</p>
+      </article>
+      <article class="note">
+        <h3>Evidence-Driven Design</h3>
+        <p>Start from outcomes, align assessment, then craft media and interactions that serve the goal.</p>
+      </article>
+    </section>
+  </main>
+
+  <!-- Lightbox (hidden by default) -->
+  <div id="lightbox" class="lightbox" hidden aria-modal="true" role="dialog" aria-label="Image viewer">
+    <button class="lb-close" aria-label="Close (Esc)">×</button>
+    <img class="lb-img" alt="" />
+    <p class="lb-cap" aria-live="polite"></p>
+    <button class="lb-prev" aria-label="Previous (←)">&larr;</button>
+    <button class="lb-next" aria-label="Next (→)">&rarr;</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
