@@ -1,4 +1,3 @@
-// Simple hash router (Home/Resume/Artifacts/Reflections)
 (function router() {
   const routes = Array.from(document.querySelectorAll(".route"));
   const menuLinks = Array.from(document.querySelectorAll(".menu a"));
@@ -13,47 +12,133 @@
   document.addEventListener("DOMContentLoaded", () => showRoute(location.hash || "#home"));
 })();
 
-// Lightweight, accessible lightbox for gallery images
-(function lightbox() {
-  const galleryImgs = Array.from(document.querySelectorAll(".gallery .thumb"));
-  if (!galleryImgs.length) return;
+(function mobileNav() {
+  const body = document.body;
+  const toggle = document.querySelector(".nav-toggle");
+  const sidebar = document.getElementById("sidebar");
+  const overlay = document.querySelector(".nav-overlay");
+  const links = sidebar ? sidebar.querySelectorAll("a[href^='#']") : [];
 
+  if (!toggle || !sidebar || !overlay) return;
+
+  function openNav() {
+    body.classList.add("nav-open");
+    overlay.hidden = false;
+    toggle.setAttribute("aria-expanded", "true");
+  }
+  function closeNav() {
+    body.classList.remove("nav-open");
+    overlay.hidden = true;
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.focus();
+  }
+  function toggleNav() {
+    body.classList.contains("nav-open") ? closeNav() : openNav();
+  }
+
+  toggle.addEventListener("click", toggleNav);
+  overlay.addEventListener("click", closeNav);
+
+
+  links.forEach(a => a.addEventListener("click", closeNav));
+
+
+  window.addEventListener("keydown", e => {
+    if (e.key === "Escape" && body.classList.contains("nav-open")) closeNav();
+  });
+
+  
+  window.addEventListener("hashchange", closeNav);
+})();
+
+// Grouped lightbox that supports images and PDFs per artifact card
+(function groupedLightbox() {
+  const cards = Array.from(document.querySelectorAll(".gallery .card"));
   const lb = document.getElementById("lightbox");
+  if (!lb || !cards.length) return;
+
   const lbImg = lb.querySelector(".lb-img");
   const lbCap = lb.querySelector(".lb-cap");
   const btnClose = lb.querySelector(".lb-close");
   const btnPrev = lb.querySelector(".lb-prev");
   const btnNext = lb.querySelector(".lb-next");
 
+  // Create (or reuse) an iframe element for PDFs
+  let lbFrame = lb.querySelector(".lb-frame");
+  if (!lbFrame) {
+    lbFrame = document.createElement("iframe");
+    lbFrame.className = "lb-frame";
+    lbFrame.setAttribute("title", "Document viewer");
+    lbFrame.setAttribute("frameborder", "0");
+    lbFrame.setAttribute("loading", "lazy");
+    lbFrame.style.display = "none"; // hidden by default
+    lb.insertBefore(lbFrame, lbCap);
+  }
+
+  let slides = [];  // [{type:'image'|'pdf', src:'...'}]
   let idx = 0;
 
-  function open(i) {
-    idx = i;
-    const el = galleryImgs[idx];
-    const full = el.getAttribute("data-full") || el.src;
-    lbImg.src = full;
-    lbImg.alt = el.alt || "";
-    lbCap.textContent = el.alt || "";
+  function parseList(el, attr) {
+    const raw = (el.getAttribute(attr) || "").trim();
+    return raw ? raw.split("|").map(s => s.trim()) : [];
+  }
+
+  function openFromCard(card) {
+    const srcs = parseList(card, "data-slides");
+    const types = parseList(card, "data-types");
+    const title = card.getAttribute("data-title") || "";
+
+    slides = srcs.map((src, i) => ({
+      type: (types[i] || "image").toLowerCase(),
+      src
+    }));
+
+    // start on the first slide for that artifact
+    idx = 0;
+    show(idx, title);
     lb.hidden = false;
     document.body.style.overflow = "hidden";
     btnClose.focus();
   }
 
+  function show(i, title) {
+    idx = ((i % slides.length) + slides.length) % slides.length;
+    const s = slides[idx];
+
+    if (s.type === "pdf") {
+      // Show iframe, hide image
+      lbFrame.src = s.src;
+      lbFrame.style.display = "block";
+      lbImg.src = "";
+      lbImg.style.display = "none";
+    } else {
+      // Show image, hide iframe
+      lbImg.src = s.src;
+      lbImg.alt = title ? `${title} — slide ${idx + 1}` : "";
+      lbImg.style.display = "block";
+      lbFrame.src = "";
+      lbFrame.style.display = "none";
+    }
+
+    lbCap.textContent = title ? `${title} • ${idx + 1} / ${slides.length}` : `${idx + 1} / ${slides.length}`;
+  }
+
   function close() {
     lb.hidden = true;
     lbImg.src = "";
+    lbFrame.src = "";
     document.body.style.overflow = "";
-    galleryImgs[idx].focus();
   }
+  function prev() { show(idx - 1); }
+  function next() { show(idx + 1); }
 
-  function prev() { open((idx - 1 + galleryImgs.length) % galleryImgs.length); }
-  function next() { open((idx + 1) % galleryImgs.length); }
-
-  galleryImgs.forEach((img, i) => {
-    img.setAttribute("tabindex", "0");
-    img.addEventListener("click", () => open(i));
-    img.addEventListener("keydown", e => {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(i); }
+  // Card click opens its grouped slides
+  cards.forEach(card => {
+    const cover = card.querySelector(".thumb");
+    (cover || card).addEventListener("click", () => openFromCard(card));
+    (cover || card).setAttribute("tabindex", "0");
+    (cover || card).addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openFromCard(card); }
     });
   });
 
@@ -61,10 +146,7 @@
   btnPrev.addEventListener("click", prev);
   btnNext.addEventListener("click", next);
 
-  lb.addEventListener("click", e => {
-    // close when clicking dark backdrop (but not the image/buttons)
-    if (e.target === lb) close();
-  });
+  lb.addEventListener("click", e => { if (e.target === lb) close(); });
 
   window.addEventListener("keydown", e => {
     if (lb.hidden) return;
