@@ -102,7 +102,7 @@
   }
 
   function show(i, title) {
-    idx = ((i % slides.length) + slides.length) % slides.length;
+    idx = ((i % slides.length)  slides.length) % slides.length;
     const s = slides[idx];
 
     if (s.type === "pdf") {
@@ -114,13 +114,13 @@
     } else {
       // Show image, hide iframe
       lbImg.src = s.src;
-      lbImg.alt = title ? `${title} — slide ${idx + 1}` : "";
+      lbImg.alt = title ? `${title} — slide ${idx  1}` : "";
       lbImg.style.display = "block";
       lbFrame.src = "";
       lbFrame.style.display = "none";
     }
 
-    lbCap.textContent = title ? `${title} • ${idx + 1} / ${slides.length}` : `${idx + 1} / ${slides.length}`;
+    lbCap.textContent = title ? `${title} • ${idx  1} / ${slides.length}` : `${idx  1} / ${slides.length}`;
   }
 
   function close() {
@@ -130,7 +130,7 @@
     document.body.style.overflow = "";
   }
   function prev() { show(idx - 1); }
-  function next() { show(idx + 1); }
+  function next() { show(idx  1); }
 
   // Card click opens its grouped slides
   cards.forEach(card => {
@@ -154,4 +154,40 @@
     if (e.key === "ArrowLeft") prev();
     if (e.key === "ArrowRight") next();
   });
+
+    // --- Touch / swipe / tap navigation (mobile) ---
+  let touchStartX = 0, touchStartY = 0, tracking = false;
+  const SWIPE_THRESHOLD = 28; // px of horizontal movement to count as a swipe
+
+  function onTouchStart(e) {
+    const t = e.changedTouches[0];
+    touchStartX = t.clientX;
+    touchStartY = t.clientY;
+    tracking = true;
+  }
+
+  function onTouchEnd(e) {
+    if (!tracking) return;
+    tracking = false;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - touchStartX;
+    const dy = t.clientY - touchStartY;
+    // prefer horizontal, ignore vertical scrolls
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > SWIPE_THRESHOLD) {
+      dx < 0 ? next() : prev();
+    }
+  }
+
+  // capture swipes anywhere on the lightbox overlay
+  lb.addEventListener("touchstart", onTouchStart, { passive: true });
+  lb.addEventListener("touchend",   onTouchEnd,   { passive: true });
+
+  // quick tap navigation on the image: right half = next, left half = prev
+  if (lbImg) {
+    lbImg.addEventListener("click", e => {
+      if (lb.hidden) return;
+      const mid = window.innerWidth / 2;
+      (e.clientX > mid) ? next() : prev();
+    });
+  }
 })();
