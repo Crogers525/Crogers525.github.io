@@ -63,6 +63,9 @@
   const btnPrev = lb.querySelector(".lb-prev");
   const btnNext = lb.querySelector(".lb-next");
 
+  let slides = [];  // [{type:'image'|'pdf', src:'...'}]
+  let idx = 0;
+
   // Create (or reuse) an iframe element for PDFs
   let lbFrame = lb.querySelector(".lb-frame");
   if (!lbFrame) {
@@ -74,9 +77,6 @@
     lbFrame.style.display = "none"; // hidden by default
     lb.insertBefore(lbFrame, lbCap);
   }
-
-  let slides = [];  // [{type:'image'|'pdf', src:'...'}]
-  let idx = 0;
 
   function parseList(el, attr) {
     const raw = (el.getAttribute(attr) || "").trim();
@@ -102,7 +102,7 @@
   }
 
   function show(i, title) {
-    idx = ((i % slides.length)  slides.length) % slides.length;
+    idx = ((i % slides.length) + slides.length) % slides.length;
     const s = slides[idx];
 
     if (s.type === "pdf") {
@@ -114,13 +114,13 @@
     } else {
       // Show image, hide iframe
       lbImg.src = s.src;
-      lbImg.alt = title ? `${title} — slide ${idx  1}` : "";
+      lbImg.alt = title ? `${title} — slide ${idx + 1}` : "";
       lbImg.style.display = "block";
       lbFrame.src = "";
       lbFrame.style.display = "none";
     }
 
-    lbCap.textContent = title ? `${title} • ${idx  1} / ${slides.length}` : `${idx  1} / ${slides.length}`;
+    lbCap.textContent = title ? `${title} - ${idx + 1} / ${slides.length}` : `${idx + 1} / ${slides.length}`;
   }
 
   function close() {
@@ -130,7 +130,7 @@
     document.body.style.overflow = "";
   }
   function prev() { show(idx - 1); }
-  function next() { show(idx  1); }
+  function next() { show(idx + 1); }
 
   // Card click opens its grouped slides
   cards.forEach(card => {
@@ -142,9 +142,18 @@
     });
   });
 
-  btnClose.addEventListener("click", close);
-  btnPrev.addEventListener("click", prev);
-  btnNext.addEventListener("click", next);
+  btnClose.addEventListener("click", (e) => { 
+  e.preventDefault(); e.stopPropagation(); 
+  close(); 
+});
+btnPrev.addEventListener("click", (e) => { 
+  e.preventDefault(); e.stopPropagation(); 
+  prev(); 
+});
+btnNext.addEventListener("click", (e) => { 
+  e.preventDefault(); e.stopPropagation(); 
+  next(); 
+});
 
   lb.addEventListener("click", e => { if (e.target === lb) close(); });
 
