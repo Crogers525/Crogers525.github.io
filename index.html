@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Casey Rogers | Instructional Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0f1f3d;
+    --navy-mid: #1a2f52;
+    --green: #1a9e5f;
+    --green-light: #22b86e;
+    --green-pale: #e8f7f0;
+    --cream: #faf9f6;
+    --white: #ffffff;
+    --text: #111827;
+    --muted: #6b7280;
+    --border: rgba(15,31,61,0.1);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    background: rgba(15,31,61,0.97);
+    backdrop-filter: blur(12px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3rem;
+    height: 64px;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 600;
+    color: var(--white);
+    letter-spacing: 0.02em;
+  }
+  .nav-logo span { color: var(--green-light); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 14px; font-weight: 400;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--green-light); }
+  .nav-cta {
+    background: var(--green);
+    color: var(--white) !important;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-weight: 500 !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--green-light) !important; color: var(--white) !important; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex; align-items: center;
+    padding: 100px 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg-circle {
+    position: absolute; border-radius: 50%;
+    background: rgba(26,158,95,0.08);
+  }
+  .hero-bg-circle.c1 { width: 600px; height: 600px; top: -100px; right: -100px; }
+  .hero-bg-circle.c2 { width: 300px; height: 300px; bottom: 50px; left: -80px; background: rgba(26,158,95,0.05); }
+  .hero-inner { max-width: 1100px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(26,158,95,0.2);
+    color: var(--green-light);
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 20px;
+    margin-bottom: 1.5rem;
+  }
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 600; line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 400; font-style: italic;
+    color: var(--green-light);
+    margin-bottom: 1.5rem;
+  }
+  .hero-bio {
+    color: rgba(255,255,255,0.7);
+    font-size: 15px; line-height: 1.8;
+    margin-bottom: 2rem;
+    max-width: 480px;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--green);
+    color: var(--white);
+    padding: 12px 28px; border-radius: 4px;
+    text-decoration: none; font-weight: 500; font-size: 14px;
+    letter-spacing: 0.04em;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--green-light); transform: translateY(-1px); }
+  .btn-outline {
+    border: 1px solid rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.85);
+    padding: 12px 28px; border-radius: 4px;
+    text-decoration: none; font-weight: 400; font-size: 14px;
+    letter-spacing: 0.04em;
+    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--green-light); color: var(--green-light); transform: translateY(-1px); }
+  .hero-stats { display: flex; gap: 2rem; margin-top: 2.5rem; }
+  .stat { text-align: left; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 600; color: var(--white); line-height: 1; }
+  .stat-label { font-size: 12px; color: rgba(255,255,255,0.5); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 4px; }
+  .hero-right { position: relative; display: flex; justify-content: center; align-items: center; }
+  .hero-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    width: 100%; max-width: 380px;
+  }
+  .hero-card-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.4); margin-bottom: 1.5rem; }
+  .skill-pill {
+    display: inline-block;
+    background: rgba(26,158,95,0.15);
+    border: 1px solid rgba(26,158,95,0.3);
+    color: #6ee9a8;
+    font-size: 12px; padding: 5px 12px; border-radius: 20px;
+    margin: 4px;
+  }
+  .hero-accent-bar {
+    width: 3px; height: 60px;
+    background: var(--green);
+    position: absolute; left: -20px; top: 50%;
+    transform: translateY(-50%);
+    border-radius: 2px;
+  }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 6rem 3rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 11px; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--green);
+    margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 600; color: var(--navy);
+    margin-bottom: 1rem; line-height: 1.2;
+  }
+  .section-sub {
+    color: var(--muted); font-size: 15px;
+    max-width: 560px; line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+  .divider { width: 40px; height: 3px; background: var(--green); border-radius: 2px; margin-bottom: 2.5rem; }
+
+  /* ── ABOUT ── */
+  #about { background: var(--white); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .about-text p { color: #374151; font-size: 15px; line-height: 1.85; margin-bottom: 1rem; }
+  .about-cards { display: flex; flex-direction: column; gap: 1rem; }
+  .about-card {
+    background: var(--cream);
+    border-left: 3px solid var(--green);
+    border-radius: 0 8px 8px 0;
+    padding: 1.25rem 1.5rem;
+  }
+  .about-card-title { font-weight: 500; font-size: 14px; color: var(--navy); margin-bottom: 4px; }
+  .about-card-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--cream); }
+  .skills-intro { font-size: 15px; color: var(--muted); max-width: 600px; line-height: 1.75; margin-bottom: 3rem; }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; }
+  .skill-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .skill-card:hover { box-shadow: 0 4px 20px rgba(15,31,61,0.08); transform: translateY(-2px); }
+  .skill-icon { font-size: 22px; margin-bottom: 0.75rem; }
+  .skill-name { font-weight: 500; font-size: 14px; color: var(--navy); line-height: 1.4; }
+
+  /* ── EDUCATION ── */
+  #education { background: var(--navy); }
+  #education .section-title { color: var(--white); }
+  #education .section-label { color: var(--green-light); }
+  .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+  .edu-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: background 0.2s;
+  }
+  .edu-card:hover { background: rgba(255,255,255,0.09); }
+  .edu-degree {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 600;
+    color: var(--white); margin-bottom: 0.5rem; line-height: 1.3;
+  }
+  .edu-school { font-size: 13px; color: var(--green-light); font-weight: 500; margin-bottom: 0.5rem; }
+  .edu-detail { font-size: 13px; color: rgba(255,255,255,0.55); margin-bottom: 4px; }
+  .edu-gpa {
+    display: inline-block; margin-top: 1rem;
+    background: rgba(26,158,95,0.2); color: #6ee9a8;
+    font-size: 12px; font-weight: 500;
+    padding: 4px 12px; border-radius: 20px;
+  }
+  .edu-note { font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 6px; }
+
+  /* ── EXPERIENCE ── */
+  #experience { background: var(--white); }
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 0; top: 8px; bottom: 8px;
+    width: 2px; background: var(--border);
+  }
+  .timeline-item { position: relative; margin-bottom: 3rem; }
+  .timeline-dot {
+    position: absolute; left: -2.35rem; top: 6px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--white); border: 2px solid var(--green);
+    transition: background 0.2s;
+  }
+  .timeline-item:hover .timeline-dot { background: var(--green); }
+  .timeline-date {
+    font-size: 12px; color: var(--green); font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .timeline-role {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem; font-weight: 600; color: var(--navy);
+    margin-bottom: 0.2rem;
+  }
+  .timeline-org { font-size: 14px; color: var(--muted); margin-bottom: 0.75rem; }
+  .timeline-bullets { padding-left: 1.1rem; }
+  .timeline-bullets li { font-size: 14px; color: #4b5563; line-height: 1.7; margin-bottom: 4px; }
+
+  /* ── ARTIFACTS ── */
+  #artifacts { background: var(--cream); }
+  .artifacts-intro { font-size: 15px; color: var(--muted); max-width: 680px; line-height: 1.75; margin-bottom: 3rem; }
+  .artifacts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+  .artifact-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.75rem;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .artifact-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--green);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.25s;
+  }
+  .artifact-card:hover::before { transform: scaleX(1); }
+  .artifact-card:hover { box-shadow: 0 6px 24px rgba(15,31,61,0.1); transform: translateY(-3px); border-color: transparent; }
+  .artifact-tag {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--green); font-weight: 500; margin-bottom: 0.75rem;
+  }
+  .artifact-title { font-weight: 500; font-size: 15px; color: var(--navy); margin-bottom: 0.5rem; line-height: 1.4; }
+  .artifact-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+  .artifact-arrow {
+    display: inline-flex; align-items: center; gap: 4px;
+    margin-top: 1rem; font-size: 12px; color: var(--green); font-weight: 500;
+  }
+
+  /* Artifact Modal */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 500;
+    background: rgba(10,20,40,0.75);
+    display: flex; align-items: center; justify-content: center;
+    padding: 2rem;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.25s;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal {
+    background: var(--white);
+    border-radius: 14px;
+    max-width: 680px; width: 100%;
+    max-height: 85vh; overflow-y: auto;
+    padding: 2.5rem;
+    transform: translateY(20px);
+    transition: transform 0.25s;
+  }
+  .modal-overlay.open .modal { transform: translateY(0); }
+  .modal-tag { font-size: 11px; color: var(--green); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem; }
+  .modal-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 600; color: var(--navy); margin-bottom: 1rem; }
+  .modal-body { font-size: 14px; color: #4b5563; line-height: 1.8; }
+  .modal-close {
+    position: absolute; top: 1.25rem; right: 1.25rem;
+    background: none; border: none; cursor: pointer;
+    font-size: 22px; color: var(--muted);
+    width: 32px; height: 32px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s;
+  }
+  .modal-close:hover { background: var(--cream); }
+  .modal-inner { position: relative; }
+  .modal-skills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1.25rem; }
+  .modal-skill-tag {
+    background: var(--green-pale); color: #0d6e42;
+    font-size: 12px; padding: 4px 10px; border-radius: 20px;
+  }
+
+  /* ── REFLECTION ── */
+  #reflection { background: var(--white); }
+  .reflection-card {
+    background: var(--navy);
+    border-radius: 16px; padding: 3rem;
+    color: rgba(255,255,255,0.8);
+    font-size: 15px; line-height: 1.9;
+    position: relative; overflow: hidden;
+  }
+  .reflection-card::before {
+    content: '\201C';
+    font-family: 'Playfair Display', serif;
+    font-size: 8rem; line-height: 1;
+    color: var(--green); opacity: 0.2;
+    position: absolute; top: -10px; left: 1.5rem;
+  }
+  .reflection-card p { position: relative; z-index: 1; margin-bottom: 1rem; }
+  .reflection-card strong { color: var(--white); font-weight: 500; }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--cream); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+  .contact-info { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-item {
+    display: flex; align-items: flex-start; gap: 1rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.25rem 1.5rem;
+  }
+  .contact-icon {
+    width: 40px; height: 40px; border-radius: 8px;
+    background: var(--green-pale);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .contact-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+  .contact-value { font-weight: 500; color: var(--navy); font-size: 14px; }
+  .contact-form { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; }
+  .contact-form h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--navy); margin-bottom: 1.5rem; }
+  .form-group { margin-bottom: 1rem; }
+  .form-group label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+  .form-group input, .form-group textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; color: var(--text);
+    background: var(--cream);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--green); }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+  .form-submit {
+    width: 100%; padding: 12px;
+    background: var(--green); color: var(--white);
+    border: none; border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 500;
+    cursor: pointer; transition: background 0.2s;
+    letter-spacing: 0.04em;
+  }
+  .form-submit:hover { background: var(--green-light); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 2rem 3rem;
+    font-size: 13px;
+  }
+  footer span { color: var(--green-light); }
+
+  /* ── ANIMATIONS ── */
+  .fade-up {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 800px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    #hero { padding: 100px 1.5rem 3rem; }
+    .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .hero-right { display: none; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Casey <span>Rogers</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#artifacts">Artifacts</a></li>
+    <li><a href="#reflection">Reflection</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-circle c1"></div>
+  <div class="hero-bg-circle c2"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-tag">Instructional Designer · 2026</div>
+      <h1 class="hero-name">Casey Rogers</h1>
+      <p class="hero-title">Designing learning that works.</p>
+      <p class="hero-bio">With over a decade of experience, I create engaging, standard-aligned learning experiences for adult and professional learners. I bring a learner-centered, hands-on approach that emphasizes real-world application, problem-solving, and skill transfer.</p>
+      <div class="hero-btns">
+        <a href="#artifacts" class="btn-primary">View My Work</a>
+        <a href="#contact" class="btn-outline">Get in Touch</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="stat-num">10+</div><div class="stat-label">Years in Education</div></div>
+        <div class="stat"><div class="stat-num">4.0</div><div class="stat-label">MSIT GPA at MSU</div></div>
+        <div class="stat"><div class="stat-num">8</div><div class="stat-label">Portfolio Artifacts</div></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-accent-bar"></div>
+      <div class="hero-card">
+        <div class="hero-card-label">Core Competencies</div>
+        <div>
+          <span class="skill-pill">Articulate 360</span>
+          <span class="skill-pill">ADDIE</span>
+          <span class="skill-pill">UDL</span>
+          <span class="skill-pill">Camtasia</span>
+          <span class="skill-pill">LMS Admin</span>
+          <span class="skill-pill">Kirkpatrick</span>
+          <span class="skill-pill">Quality Matters</span>
+          <span class="skill-pill">eLearning</span>
+          <span class="skill-pill">Canva</span>
+          <span class="skill-pill">ADA Compliance</span>
+          <span class="skill-pill">Needs Analysis</span>
+          <span class="skill-pill">Canvas LMS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-label">About Me</div>
+    <h2 class="section-title">Hello, I'm Casey Rogers</h2>
+    <div class="divider"></div>
+    <div class="about-grid fade-up">
+      <div class="about-text">
+        <p>With over a decade of experience, I specialize in creating engaging, standard-aligned learning experiences for adult and professional learners, particularly in technical and workforce-focused domains.</p>
+        <p>Grounded in education and instructional technology, I bring a learner-centered, hands-on approach to design that emphasizes real-world application, problem-solving, and skill transfer.</p>
+        <p>My experience developing high-impact training for complex technical subjects — mainly Uncrewed Aircraft Systems (UAS) — has strengthened my ability to translate highly sophisticated concepts into clear, accessible, and engaging instruction.</p>
+        <p>An early foundation in K–12 education gives me a deep understanding of how learners build knowledge across age groups and contexts.</p>
+      </div>
+      <div class="about-cards">
+        <div class="about-card">
+          <div class="about-card-title">Current Role</div>
+          <div class="about-card-text">Instructional Designer at Mississippi State University (CITE), partnering with faculty to design and review online/hybrid courses using best practices and Quality Matters standards.</div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-title">My Approach</div>
+          <div class="about-card-text">I apply Instructional Systems Design (ISD) principles to create engaging, accessible, and results-driven learning experiences grounded in theory and informed by data.</div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-title">Background</div>
+          <div class="about-card-text">Former classroom teacher, curriculum coordinator, and instructional innovator with experience spanning K–12, higher education, and technical workforce training.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-label">What I Bring</div>
+    <h2 class="section-title">Skills & Expertise</h2>
+    <div class="divider"></div>
+    <p class="skills-intro">My work combines data-informed analysis, creative design, and emerging technologies to transform complex content into clear, learner-centered instruction that improves performance and promotes continuous growth.</p>
+    <div class="skills-grid fade-up">
+      <div class="skill-card"><div class="skill-icon">🎨</div><div class="skill-name">Instructional Design &amp; Corporate Training Development</div></div>
+      <div class="skill-card"><div class="skill-icon">💻</div><div class="skill-name">eLearning Development (Articulate 360, Camtasia, Canva)</div></div>
+      <div class="skill-card"><div class="skill-icon">🗂️</div><div class="skill-name">LMS Administration &amp; Integration</div></div>
+      <div class="skill-card"><div class="skill-icon">🧠</div><div class="skill-name">Adult Learning Theory &amp; Performance Improvement</div></div>
+      <div class="skill-card"><div class="skill-icon">♿</div><div class="skill-name">Accessibility &amp; Universal Design for Learning (UDL)</div></div>
+      <div class="skill-card"><div class="skill-icon">📊</div><div class="skill-name">Needs Analysis &amp; Evaluation (Kirkpatrick, ADDIE)</div></div>
+      <div class="skill-card"><div class="skill-icon">🤝</div><div class="skill-name">Collaboration &amp; Stakeholder Communication</div></div>
+      <div class="skill-card"><div class="skill-icon">📋</div><div class="skill-name">Project Management</div></div>
+      <div class="skill-card"><div class="skill-icon">✍️</div><div class="skill-name">Technical Writing &amp; Visual Design</div></div>
+      <div class="skill-card"><div class="skill-icon">☁️</div><div class="skill-name">Microsoft 365 &amp; Google Workspace</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-inner">
+    <div class="section-label">Academic Background</div>
+    <h2 class="section-title">Education</h2>
+    <div class="divider" style="background:var(--green-light);"></div>
+    <div class="edu-grid fade-up">
+      <div class="edu-card">
+        <div class="edu-degree">Master of Instructional Technology</div>
+        <div class="edu-school">Mississippi State University — Starkville, MS</div>
+        <div class="edu-detail">Concentration: Instructional Systems &amp; Workforce Development</div>
+        <div class="edu-detail">January 2024 – June 2026</div>
+        <span class="edu-gpa">GPA: 4.0</span>
+      </div>
+      <div class="edu-card">
+        <div class="edu-degree">Master of Education</div>
+        <div class="edu-school">Goucher College — Towson, MD</div>
+        <div class="edu-detail">Concentration: Curriculum &amp; Instruction</div>
+        <div class="edu-detail">January 2016 – June 2018</div>
+        <span class="edu-gpa">GPA: 4.0</span>
+        <div class="edu-note">⅔ credits completed</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-degree">Bachelor of Science: Education</div>
+        <div class="edu-school">Indiana Institute of Technology — Fort Wayne, IN</div>
+        <div class="edu-detail">Concentration: Elementary Education</div>
+        <div class="edu-detail">August 2008 – December 2012</div>
+        <span class="edu-gpa">GPA: 3.5</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-label">Career Journey</div>
+    <h2 class="section-title">Experience</h2>
+    <div class="divider"></div>
+    <div class="timeline fade-up">
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">March 2025 – Present</div>
+        <div class="timeline-role">Instructional Designer</div>
+        <div class="timeline-org">Mississippi State University — Starkville, MS</div>
+        <ul class="timeline-bullets">
+          <li>Collaborate with faculty and SMEs to design and revise online/hybrid courses using best practices.</li>
+          <li>Conduct course reviews for Quality Matters (QM) alignment, ADA compliance, and institutional policy adherence.</li>
+          <li>Manage multiple development projects, meeting timelines and quality expectations.</li>
+          <li>Support technology integration (Studio, Turnitin, Webex) into instructional delivery.</li>
+          <li>Provide 1:1 consultations and group trainings on effective online teaching strategies.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">February 2023 – March 2025</div>
+        <div class="timeline-role">Curriculum Coordinator / ISD</div>
+        <div class="timeline-org">Mississippi State University (ASSURE Program) — Starkville, MS</div>
+        <ul class="timeline-bullets">
+          <li>Led development, maintenance, and review of curriculum and training programs.</li>
+          <li>Owned end-to-end instructional design, including evaluation and branding of curriculum content.</li>
+          <li>Coordinated with FEMA, FAA, NIST, DHS, state EMAs, and first responders to identify UAS education needs.</li>
+          <li>Worked with external partners to integrate their programs into a federated portfolio.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">June 2020 – June 2022</div>
+        <div class="timeline-role">Instructional Innovator</div>
+        <div class="timeline-org">Archdiocese of Mobile — Mobile, AL</div>
+        <ul class="timeline-bullets">
+          <li>Evaluated student performance via verbal assessments, assignments, and standardized tests.</li>
+          <li>Used multimedia strategies and technology to deliver engaging instruction.</li>
+          <li>Organized and led school-wide events based on stakeholder data.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">July 2018 – June 2020</div>
+        <div class="timeline-role">Math Teacher — A+ Recipient (2019–2020)</div>
+        <div class="timeline-org">Pascagoula–Gautier School District — Gautier, MS</div>
+        <ul class="timeline-bullets">
+          <li>Led "data chats" and developed instructional plans to improve student performance.</li>
+          <li>Analyzed classroom, district, and state data to form groups and drive outcomes.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">August 2013 – July 2018</div>
+        <div class="timeline-role">Teacher / 5th Grade Team Leader</div>
+        <div class="timeline-org">Anne Arundel County Public Schools — Annapolis, MD</div>
+        <ul class="timeline-bullets">
+          <li>Served as 5th Grade Team Leader (2015–2016; 2017–2018) and Intermediate Team Leader.</li>
+          <li>Led curriculum and assessment vetting across grade levels.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ARTIFACTS -->
+<section id="artifacts">
+  <div class="section-inner">
+    <div class="section-label">Portfolio</div>
+    <h2 class="section-title">Selected Artifacts</h2>
+    <div class="divider"></div>
+    <p class="artifacts-intro">These selected examples demonstrate how instructional strategies, visual design, and subject matter expertise are integrated to create meaningful, effective learning experiences that support real-world application and skill acquisition.</p>
+    <div class="artifacts-grid fade-up" id="artifactsGrid"></div>
+  </div>
+</section>
+
+<!-- REFLECTION -->
+<section id="reflection">
+  <div class="section-inner">
+    <div class="section-label">Program Reflection</div>
+    <h2 class="section-title">MSIT Reflection</h2>
+    <div class="divider"></div>
+    <div class="reflection-card fade-up">
+      <p>Motivated by the need to improve training courses for first responders learning drone operations, I enrolled in the MSIT program to develop stronger instructional design skills.</p>
+      <p>Throughout the program, I gained knowledge of key theories and strategies such as <strong>instructional graphics, cognitive load theory, dual-channel processing,</strong> and <strong>Gagne's Nine Events of Instruction</strong>.</p>
+      <p>The program also helped me build critical skills in needs analysis, aligning instruction with organizational goals, and using technology intentionally to support learning.</p>
+      <p>Hands-on projects and real-world applications prepared me to confidently address instructional challenges in my career. Overall, the MSIT program provided a strong foundation in both theory and practice.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label">Let's Connect</div>
+    <h2 class="section-title">Keep in Touch</h2>
+    <div class="divider"></div>
+    <div class="contact-grid fade-up">
+      <div class="contact-info">
+        <p class="section-sub" style="margin-bottom:1.5rem;">I'd love to connect! Whether you're looking to collaborate, have a project in mind, or just want to chat about instructional design — reach out.</p>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <div class="contact-label">Email</div>
+            <div class="contact-value">casey525.prince@gmail.com</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div>
+            <div class="contact-label">Phone</div>
+            <div class="contact-value">410-971-6963</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="contact-label">Location</div>
+            <div class="contact-value">Starkville, MS — Mississippi State University</div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <h3>Send a Message</h3>
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" placeholder="Jane Smith" />
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="jane@example.com" />
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Tell me about your project or opportunity..."></textarea>
+        </div>
+        <button class="form-submit" onclick="handleSubmit(this)">Send Message</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2026 <span>Casey Rogers</span> · Instructional Designer · Mississippi State University</p>
+</footer>
+
+<!-- ARTIFACT MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-inner" id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+const artifacts = [
+  {
+    tag: "MOOC / eLearning",
+    title: "Healthy in a Hurry",
+    short: "A multimedia MOOC helping busy adults plan and prepare quick, healthy meals.",
+    full: "Healthy in a Hurry is a multimedia-based MOOC designed to help busy adults develop practical skills for planning and preparing quick, healthy meals. The course uses short instructional videos, visual guides, and interactive activities to break complex concepts into manageable segments. This project demonstrates the ability to apply microlearning, multimedia design, and learner-centered instructional strategies to create an engaging online learning experience that supports real-world application of healthy meal planning and preparation.",
+    skills: ["Microlearning", "Multimedia Design", "eLearning", "Learner-Centered Design", "Video Production"],
+    url: "#",
+    sublinks: [
+      { label: "Course Home Page", url: "#" },
+      { label: "Planning Challenge", url: "#" },
+      { label: "15-Minute Meal Combos Video", url: "#" },
+      { label: "Interactive Activity", url: "#" }
+    ]
+  },
+  {
+    tag: "Program Evaluation",
+    title: "Program Evaluation Consulting Proposal",
+    short: "A comprehensive evaluation plan for an elementary after-school program.",
+    full: "Developed by Beyond Metrics Consulting, this proposal outlines a comprehensive evaluation plan for an elementary after-school program. The document details the evaluation purpose, project deliverables, data collection strategies, and reporting process designed to assess program effectiveness in areas such as academic performance, student engagement, and self-worth. Key features include a structured evaluation plan, clearly defined deliverables, and a combination of qualitative and quantitative data collection strategies.",
+    skills: ["Evaluation Design", "Stakeholder Analysis", "Data-Informed Decision Making", "Mixed Methods", "Technical Writing"],
+    url: "#"
+  },
+  {
+    tag: "Digital Accessibility",
+    title: "Digital Accessibility Mini-Series",
+    short: "Short instructional videos helping faculty implement accessible course practices.",
+    full: "The Digital Accessibility Mini-Series — 'Small Changes, Big Access' — is a collection of short instructional videos designed to help faculty quickly implement accessible practices when developing online course materials. Each video focuses on a specific accessibility topic such as color contrast, meaningful links, alternative text, and captioning, and provides practical steps instructors can apply immediately. Key instructional design features include concise scripts, focused learning objectives, visual demonstrations, and practical examples that support rapid skill adoption.",
+    skills: ["Microlearning", "WCAG Standards", "UDL", "Video Scripting", "Faculty Development", "Accessibility"],
+    url: "#"
+  },
+  {
+    tag: "Academic Research",
+    title: "Research Paper: Mixed Methods Evaluation",
+    short: "A scholarly review analyzing a mixed-methods evaluation of a social work field education program.",
+    full: "This scholarly review analyzes a mixed-methods evaluation of a field education program designed to prepare social work students to serve transition-age youth at risk (TYAR). The review examines how qualitative and quantitative data were used together to evaluate program effectiveness, improve training for social work students, and strengthen services for vulnerable youth populations. Key features include analysis of mixed-methods research design, discussion of iterative evaluation practices, and identification of strengths and limitations in the evaluation process.",
+    skills: ["Research Analysis", "Program Evaluation", "Mixed Methods", "Critical Assessment", "Academic Writing"],
+    url: "#"
+  },
+  {
+    tag: "Program Evaluation",
+    title: "Program Evaluation Report — L3 Program",
+    short: "A comprehensive evaluation report for the Live, Laugh, and Learn after-school program.",
+    full: "This comprehensive program evaluation report was developed for the Live, Laugh, and Learn (L3) after-school program serving at-risk middle school students. The evaluation examined the program's impact on academic growth, social-emotional development, and parent engagement using an objectives-based evaluation model combined with mixed-methods data collection. Key features include pre/post academic assessments, stakeholder surveys, qualitative interviews, and visual data reporting that illustrate measurable improvements in math, reading, and social-emotional outcomes.",
+    skills: ["Data-Driven Evaluation", "Stakeholder Analysis", "Visual Reporting", "Mixed Methods", "Program Improvement"],
+    url: "#"
+  },
+  {
+    tag: "Visual Design / Branding",
+    title: "Barrel Proof Logo Design",
+    short: "A branding and promotional graphic for Barrel Proof Website Solutions.",
+    full: "This artifact is a branding and promotional graphic developed for Barrel Proof Website Solutions, a company providing cloud security, web security, hosting, and website creation services. The design communicates the organization's core services through bold typography and a structured layout that emphasizes the brand name and service offerings. Key design features include strong typographic hierarchy, color contrast to emphasize the brand identity, and strategic placement of service descriptions to quickly communicate value to potential clients.",
+    skills: ["Graphic Design", "Visual Communication", "Branding", "Typography", "Digital Marketing"],
+    url: "#"
+  },
+  {
+    tag: "Instructional Graphic",
+    title: "Water Cycle Infographic",
+    short: "An instructional infographic explaining the four major stages of the water cycle.",
+    full: "This instructional infographic is designed to visually explain the four major stages of the water cycle: evaporation, condensation, precipitation, and collection. The graphic uses simple illustrations, directional arrows, and concise descriptions to help learners understand how water moves through Earth's natural systems. Key design features include clear visual sequencing, color-coded sections, and concise explanatory text that supports comprehension while reducing cognitive load.",
+    skills: ["Instructional Graphics", "Visual Learning", "Cognitive Load Theory", "Infographic Design", "Science Communication"],
+    url: "#"
+  },
+  {
+    tag: "Graphic Design / Community",
+    title: "Oktoc Country Store Event Flyer",
+    short: "A promotional flyer for the Oktoc Country Store annual community event.",
+    full: "This artifact is a promotional flyer designed to advertise the Oktoc Country Store annual community event, highlighting activities such as raffles, baked goods, family activities, and event details including time and location. The flyer uses seasonal graphics, clear headings, and concise text to attract attention and communicate key information quickly to potential attendees. Key design features include clear typographic hierarchy, balanced layout, and decorative visuals that reinforce the welcoming, family-friendly theme of the event.",
+    skills: ["Promotional Design", "Visual Communication", "Typography", "Event Marketing", "Community Engagement"],
+    url: "#"
+  }
+];
+
+const grid = document.getElementById('artifactsGrid');
+artifacts.forEach((a, i) => {
+  const card = document.createElement('div');
+  card.className = 'artifact-card';
+  card.innerHTML = `
+    <div class="artifact-tag">${a.tag}</div>
+    <div class="artifact-title">${a.title}</div>
+    <div class="artifact-desc">${a.short}</div>
+    <div class="artifact-arrow">View details &rarr;</div>
+  `;
+  card.onclick = () => openModal(i);
+  grid.appendChild(card);
+});
+
+function openModal(i) {
+  const a = artifacts[i];
+
+  const viewBtn = `
+    <div style="margin-top:1.5rem; border-top:1px solid #e5e7eb; padding-top:1.5rem;">
+      <div style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#6b7280;margin-bottom:.75rem;">View Artifact</div>
+      <a href="${a.url}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;background:#0f1f3d;color:#fff;font-size:14px;font-weight:500;padding:12px 22px;border-radius:6px;text-decoration:none;transition:background .2s;" onmouseover="this.style.background='#1a9e5f'" onmouseout="this.style.background='#0f1f3d'">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        Open artifact
+      </a>
+    </div>`;
+
+  const sublinksHtml = a.sublinks ? `
+    <div style="margin-top:1.25rem;">
+      <div style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#6b7280;margin-bottom:.75rem;">Components</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        ${a.sublinks.map(l => `<a href="${l.url}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:#e8f7f0;color:#0d6e42;font-size:13px;font-weight:500;padding:7px 14px;border-radius:6px;text-decoration:none;border:1px solid #a7e8cc;" onmouseover="this.style.background='#1a9e5f';this.style.color='#fff'" onmouseout="this.style.background='#e8f7f0';this.style.color='#0d6e42'">${l.label} →</a>`).join('')}
+      </div>
+    </div>` : '';
+
+  document.getElementById('modalContent').innerHTML = `
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-tag">${a.tag}</div>
+    <div class="modal-title">${a.title}</div>
+    <div class="modal-body">${a.full}</div>
+    <div class="modal-skills">${a.skills.map(s => `<span class="modal-skill-tag">${s}</span>`).join('')}</div>
+    ${viewBtn}
+    ${sublinksHtml}
+  `;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('modalOverlay') || e.target.className === 'modal-close') {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+function handleSubmit(btn) {
+  btn.textContent = 'Message sent!';
+  btn.style.background = '#0d6e42';
+  setTimeout(() => { btn.textContent = 'Send Message'; btn.style.background = ''; }, 3000);
+}
+
+// Scroll animations
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Close modal on Escape
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal({}); });
+</script>
+</body>
+</html>
